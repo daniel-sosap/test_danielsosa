@@ -11,16 +11,13 @@ import java.math.BigInteger;
 public class GetNumberToWordsRequestBuilder {
     public NumberToWords getNumberToWords(BigInteger number) {
         NumberToWords request = new NumberToWords();
-        request.setUbiNum(number);  // Para convertir el número a palabras, sigue usando BigInteger
+        request.setUbiNum(number);
         return request;
     }
 
     public NumberToDollars getNumberToDollars(BigDecimal number) {
         NumberToDollars request = new NumberToDollars();
-
-        // Convertir el BigDecimal a String antes de pasarlo al método setDNum
-
-        request.setDNum(number);  // Convertir BigDecimal a String
+        request.setDNum(number);
         return request;
     }
 }

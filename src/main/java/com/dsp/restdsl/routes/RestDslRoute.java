@@ -23,7 +23,6 @@ public class RestDslRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        // Configuración de la API REST
         restConfiguration()
                 .host("localhost")
                 .port(8080)
@@ -37,25 +36,23 @@ public class RestDslRoute extends RouteBuilder {
                 .apiContextRouteId("api-doc-context")
                 .apiVendorExtension(true);
 
-        // Definir las rutas REST para convertir números a palabras y dólares
         rest("/api")
                 .consumes(MediaType.APPLICATION_JSON_VALUE)
                 .produces(MediaType.APPLICATION_JSON_VALUE)
                 .description("Number Conversion REST service")
 
-                // Ruta para convertir número a palabras
+
                 .post("/convert-number-to-words")
                 .description("Converts a number to words")
                 .type(NumberDto.class)
                 .to(NUMBER_TO_WORDS_ROUTE)
 
-                // Ruta para convertir número a dólares
+
                 .post("/convert-number-to-dollars")
                 .description("Converts a number to dollars")
                 .type(NumberDto.class)
                 .to(NUMBER_TO_WORDS_DOLLARS);
 
-        // Ruta para convertir número a palabras
         from(NUMBER_TO_WORDS_ROUTE)
                 .routeConfigurationId("number-conversion-rest-config")
                 .to("bean-validator://validateNumberDto")
@@ -65,18 +62,16 @@ public class RestDslRoute extends RouteBuilder {
                     exchange.getIn().setBody(number);
                 })
                 .bean(GetNumberToWordsRequestBuilder.class, "getNumberToWords")
-                .marshal().jaxb()   // Convertir el request a XML
-                .process(NumberConversionHeaderUtil::setNumberToWordsHeader)  // Establecer los encabezados para la solicitud SOAP
-                .to(NUMBER_SERVICE_URI)    // Llamada al servicio SOAP
+                .marshal().jaxb()
+                .process(NumberConversionHeaderUtil::setNumberToWordsHeader)
+                .to(NUMBER_SERVICE_URI)
                 .process(exchange -> {
                     NumberToWordsResponse response = exchange.getIn().getBody(NumberToWordsResponse.class);
-                    // Aquí puedes mapear la respuesta o agregarla a la respuesta de la API REST
                 })
                 .unmarshal().jaxb("com.dataaccess.webservicesserver")
                 .marshal().json()
                 .end();
 
-        // Ruta para convertir número a dólares
         from(NUMBER_TO_WORDS_DOLLARS)
                 .routeConfigurationId("number-conversion-rest-config")
                 .to("bean-validator://validateNumberDto")
@@ -86,12 +81,11 @@ public class RestDslRoute extends RouteBuilder {
                     exchange.getIn().setBody(number);
                 })
                 .bean(GetNumberToWordsRequestBuilder.class, "getNumberToDollars")
-                .marshal().jaxb() // Convertir el request a XML
-                .process(NumberConversionHeaderUtil::setNumberToDollarsHeader)  // Establecer los encabezados para la solicitud SOAP
-                .to(NUMBER_SERVICE_URI)    // Llamada al servicio SOAP
+                .marshal().jaxb()
+                .process(NumberConversionHeaderUtil::setNumberToDollarsHeader)
+                .to(NUMBER_SERVICE_URI)
                 .process(exchange -> {
                     NumberToDollarsResponse response = exchange.getIn().getBody(NumberToDollarsResponse.class);
-                    // Aquí puedes mapear la respuesta o agregarla a la respuesta de la API REST
                 })
                 .unmarshal().jaxb("com.dataaccess.webservicesserver")
                 .marshal().json()

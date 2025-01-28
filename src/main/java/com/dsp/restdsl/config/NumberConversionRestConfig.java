@@ -27,14 +27,12 @@ public class NumberConversionRestConfig extends RouteConfigurationBuilder {
     }
 
     public void numberConversionExceptionHandler(Exchange exchange) {
-        // Usar Map.of para inicializar Map de manera más limpia (si no se necesita modificar el mapa)
         Map<String, Object> errorResponse = new HashMap<>();
         Exception exception = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
 
         errorResponse.put("message", "Validation error");
 
-        if (exception instanceof ValidationException validationException) {  // Cambio de BeanValidationException a ValidationException
-            // Usando la nueva sintaxis de Java 17 para declarar la variable directamente
+        if (exception instanceof ValidationException validationException) {
             String errors = validationException.getMessage();
             errorResponse.put("errors", errors);
         } else if (exception instanceof UnrecognizedPropertyException unrecognizedException) {
@@ -45,7 +43,6 @@ public class NumberConversionRestConfig extends RouteConfigurationBuilder {
             errorResponse.put("errors", "An unexpected error occurred. Please try again later.");
         }
 
-        // Actualizamos el cuerpo del mensaje con la respuesta de error
         exchange.getIn().setBody(errorResponse);
     }
 }

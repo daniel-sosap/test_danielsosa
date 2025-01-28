@@ -14,7 +14,6 @@ public class NumberConversionController {
 
     private final NumberConversionService numberConversionService;
 
-    // Creamos el logger para esta clase
     private static final Logger logger = LoggerFactory.getLogger(NumberConversionController.class);
 
     @Autowired
@@ -33,13 +32,11 @@ public class NumberConversionController {
         logger.info("convertNumberToWords endpoint called with number: {}", numberDto.getNumber());
 
         try {
-            // Validar que el número no sea nulo
             if (numberDto.getNumber() == null || numberDto.getNumber().isEmpty()) {
                 logger.warn("Number is null or empty.");
                 return ResponseEntity.badRequest().body("Number is required.");
             }
 
-            // Llamar al servicio SOAP para convertir el número a palabras
             logger.debug("Calling the service to convert number to words: {}", numberDto.getNumber());
             String result = numberConversionService.convertNumberToWords(numberDto.getNumber());
             logger.info("Conversion successful, result: {}", result);
@@ -61,13 +58,11 @@ public class NumberConversionController {
         logger.info("convertNumberToDollars endpoint called with number: {}", numberDto.getNumber());
 
         try {
-            // Validar que el número no sea nulo
             if (numberDto.getNumber() == null || numberDto.getNumber().isEmpty()) {
                 logger.warn("Number is null or empty.");
                 return ResponseEntity.badRequest().body("Number is required.");
             }
 
-            // Llamar al servicio SOAP para convertir el número a dólares
             logger.debug("Calling the service to convert number to dollars: {}", numberDto.getNumber());
             String result = numberConversionService.convertNumberToDollars(numberDto.getNumber());
             logger.info("Conversion successful, result: {}", result);

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "com.dsp.restdsl.routes") // Asegúrate de escanear las rutas de Camel
+@ComponentScan(basePackages = "com.dsp.restdsl.routes")
 public class CamelConfig {
 
     @Bean

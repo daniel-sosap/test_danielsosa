@@ -14,7 +14,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("public")
-                .pathsToMatch("/api/**")  // Ajusta los endpoints que deseas documentar
+                .pathsToMatch("/api/**")
                 .build();
     }
 }
