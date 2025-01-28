@@ -1,10 +1,10 @@
 package com.dsp.restdsl.validation;
 
-//import jakarta.validation.ConstraintValidator;
-//import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+//import javax.validation.ConstraintValidator;
+//import javax.validation.ConstraintValidatorContext;
 
 public class IsNumericValidator implements ConstraintValidator<IsNumeric, Object> {
     private String fieldName;

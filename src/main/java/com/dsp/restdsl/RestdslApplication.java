@@ -1,10 +1,9 @@
 package com.dsp.restdsl;
 
-import org.apache.camel.spring.boot.CamelAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(exclude = { CamelAutoConfiguration.class })
+@SpringBootApplication
 public class RestdslApplication {
 
 	public static void main(String[] args) {
