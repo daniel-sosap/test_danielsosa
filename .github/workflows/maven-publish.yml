@@ -4,8 +4,12 @@
 name: Maven Package
 
 on:
+  push:
+    branches:
+      - main  # 🔥 Solo se ejecuta cuando hay un push en 'main'
   release:
     types: [created]
+  workflow_dispatch:  # 🔥 Permite ejecución manual
 
 jobs:
   build:
